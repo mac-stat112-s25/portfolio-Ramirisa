@@ -3,3 +3,31 @@ title: "Trivariate Viz"
 ---
 
 Use this file to generate a professional looking **trivariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+
+```{r}
+ggplot(holiday_movies, aes(x = average_rating, fill = title_type)) +
+  geom_bar()+
+   labs(
+    title = "Title type's and their"~italic("Ratings"),
+    caption = "Created by Isaiah",
+    x = "rating",
+    y = "Title type totals")+
+  scale_fill_viridis_d()    
+   
+  
+  
+```
+```{r}
+ggplot(holiday_movies, aes(y = average_rating, x = runtime_minutes, color = title_type)) +  
+geom_point() +
+geom_smooth(se = FALSE,method = "lm")+
+  labs(
+    title = "Length of movies compared to"~italic("Rating"),
+    caption = "Created by Isaiah",
+    x = "Movie length",
+    y = "rating")+
+  scale_fill_viridis_d()
+ 
+
+```

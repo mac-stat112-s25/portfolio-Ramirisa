@@ -3,3 +3,20 @@ title: "Bivariate Viz"
 ---
 
 Use this file to generate a professional looking **bivariate** visualization.  The visualization will not perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+ggplot(Birthdays, aes(x = date, y = births)) +
+  geom_line() +
+  labs(title = "Births over the years",
+       caption = "Created by Isaiah")
+```
+```{r}
+ggplot(holiday_movies , aes( x = year, y = runtime_minutes)) +
+geom_line()+
+   labs(
+    title = "Length of movies over"~italic("Time"),
+    caption = "Created by Isaiah", 
+    x = "Year",
+    y = "Movie length")  
+  
+```

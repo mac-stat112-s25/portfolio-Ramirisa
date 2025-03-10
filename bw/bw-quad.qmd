@@ -3,3 +3,31 @@ title: "Quadvariate Viz"
 ---
 
 Use this file to generate a professional looking **quadvariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%  
+  addCircleMarkers(
+    data = favorite_Places,
+    lng = ~long, lat = ~lat,
+    color = ~ifelse(favorite == "yes", "red", "darkblue"),
+    radius = ~ifelse(favorite == "yes", 6, 4), 
+    label = ~place,  # Adds hover labels
+    labelOptions = labelOptions(noHide = FALSE, direction = "auto")
+  ) %>%
+  setView(lng = mean(favorite_Places$long), lat = mean(favorite_Places$lat), zoom = 6)
+  
+
+
+```
+
+```{r}
+ggplot(holiday_movies, aes(y = average_rating, x = year, color = title_type, shape = christmas )) +
+  geom_point()+
+  labs(title = "Movie success based on categories",
+       caption = "Created by Isaiah")
+       
+```
+

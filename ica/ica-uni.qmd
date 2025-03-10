@@ -3,3 +3,144 @@ title: "Univariate Viz"
 ---
 
 Use this file for practice with the **univariate viz** in-class activity.  Refer to the class website for details.
+```{r}
+# Import data
+hikes <- read.csv("https://mac-stat.github.io/data/high_peaks.csv")
+```
+
+
+```{r}
+head(hikes)
+```
+#I would want to see how elevation effects difficulty and overall rating
+#how peak elevation corresponds to descent
+
+```{r}
+# Load the package
+library(tidyverse)
+```
+
+```{r}
+ggplot(hikes, aes(x = rating))
+```
+```{r}
+# Adds actual bars to graph
+ggplot(hikes, aes(x = rating)) +
+  geom_bar()
+```
+
+```{r}
+# Does bars again but it changes up the categories of the y axis
+ggplot(hikes, aes(x = rating)) +
+  geom_bar() +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# Changes the color of bars
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(fill = "blue") +
+  labs(x = "Rating", y = "Number of hikes")
+```
+```{r}
+# Changes color of bar and is able to add an outline in a different color of the bars
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(color = "orange", fill = "blue") +
+  labs(x = "Rating", y = "Number of hikes")
+```
+
+```{r}
+# colored bars and outline color of bars and change in y axis, and white background
+ggplot(hikes, aes(x = rating)) +
+  geom_bar(color = "orange", fill = "blue")  +
+  labs(x = "Rating", y = "Sum of ratings") +
+  theme_minimal()
+```
+
+```{r}
+# colored bars and outline color of bars and change in y axis, and white background
+ggplot(hikes, aes(x = ascent)) +
+  geom_bar(color = "orange", fill = "blue")  +
+  labs(x = "ascent", y = "Difficulty") +
+  theme_minimal()
+```
+to many bars to look at
+
+
+
+```{r}
+ggplot(hikes, aes(x = elevation))
+```
+
+```{r}
+# Gives me bar plot
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram()
+```
+```{r}
+ggplot(penguins, aes(y = bill_depth_mm, fill = sex, x = flipper_length_mm)) + 
+   geom_point() + 
+   facet_wrap(~ species)
+```
+```{r}
+# Use the ggplot function
+ggplot(hikes, aes(x = rating))
+```
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", fill = "blue") 
+```
+
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 1000) +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+ggplot(hikes, aes(x = elevation)) +
+  geom_histogram(color = "white", binwidth = 200) +
+  labs(x = "Elevation (feet)", y = "Number of hikes")
+```
+```{r}
+ggplot(hikes, aes(x = elevation)) +
+  geom_density(color = "blue")
+
+```
+```{r}
+# Load data
+elections <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+
+# Check it out
+head(elections)
+
+
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_line() 
+ 
+```
+```{r}
+# A side-by-side bar plot
+# Note the new argument to geom_bar
+ggplot(elections, aes(x = historical, fill = winner_20)) +
+  geom_bar()+
+  facet_wrap(~historical)
+
+```
+```{r}
+fave_places <- read.csv("https://hash-mac.github.io/stat112site-s25/data/our_fave_places.csv")
+
+# Check it out
+head(fave_places)
+```
+```{r}
+# Since we named them "longitude" and "latitude", the function
+# automatically recognizes these variables. No need to write them!
+leaflet(data = fave_places) |> 
+  addTiles() |>
+  addMarkers()
+  
+```
+
