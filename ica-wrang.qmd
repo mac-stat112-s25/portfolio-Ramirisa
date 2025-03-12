@@ -1,0 +1,100 @@
+---
+title: "ica-DataWrang.qmd"
+editor: visual
+---
+
+```{r}
+# What's the first argument? The second?
+select(elections, c(state_name, county_name, dem_pct_20, dem_pct_16))
+```
+```{r}
+elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16)
+```
+
+```{r}
+# Without a pipe
+filter(elections, state_name == "Minnesota")
+```
+```{r}
+# With a pipe
+elections |> 
+  filter(state_name == "Minnesota")
+```
+
+```{r}
+# Ex: "=" defines x
+x = 2
+x
+```
+```{r}
+# Ex: "==" checks whether x is/matches 3
+x == 3
+```
+
+```{r}
+# Without pipes
+filter(select(elections, c(state_name, county_name, dem_pct_20, dem_pct_16)), state_name == "Minnesota")
+```
+```{r}
+# With pipes: all verbs in 1 row
+elections |> select(state_name, county_name, dem_pct_20, dem_pct_16) |> filter(state_name == "Minnesota")
+```
+```{r}
+# With pipes: each verb in a new row
+elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16) |> 
+  filter(state_name == "Minnesota")
+```
+```{r}
+# We can even do this with UN-tidyverse code in "base" R
+elections[elections$state_name == "Minnesota", c(1, 4, 8, 12)]
+```
+```{r}
+elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16) |> 
+  filter(state_name == "Minnesota")
+```
+
+```{r}
+elections |> 
+  filter(state_name, county_name, dem_pct_20, dem_pct_16) |> 
+  select(state_name == "Minnesota")
+```
+```{r}
+# Store the results
+mn <- elections |> 
+  select(state_name, county_name, dem_pct_20, dem_pct_16) |> 
+  filter(state_name == "Minnesota")
+
+# Always check it out to confirm it's what you want it to be!
+head(mn)
+
+nrow(mn)
+
+nrow(elections)
+```
+
+```{r}
+# Define elections_small
+elections_small <- elections |>
+  select(state_name, county_name, total_votes_20, repub_pct_20, dem_pct_20, total_votes_16, dem_pct_16)
+
+# Check out the first 6 rows to confirm your code did what you think it did!
+head(elections_small)
+```
+```{r}
+# Keep only data on counties in Hawaii
+ elections_small |>
+  filter(state_name == "Hawaii") |>
+  select(state_name, county_name)
+```
+```{r}
+# What does this do?
+ elections_small |> 
+   filter(state_name %in% c("Hawaii", "Delaware"))
+```
+```{r}
+
+```
+
