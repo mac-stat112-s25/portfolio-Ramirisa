@@ -1,0 +1,179 @@
+---
+title: "ica-resh."
+editor: visual
+---
+```{r}
+library(tidyverse)
+penguins <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-28/penguins.csv')
+```
+
+```{r}
+# Using count()
+penguins |> 
+  count(species,sex)
+
+# Using group_by() and summarize()
+```
+
+```{r}
+# Using group_by() and summarize()
+penguins |> 
+  group_by(species, sex) |> 
+  summarize(n())
+```
+
+```{r}
+# Relative frequencies
+penguins |> 
+  group_by(species, sex) |> 
+  summarize(n = n()) |> 
+  mutate(proportion = n / sum(n))
+```
+
+```{r}
+# Changing the order calculates the proportion of species within each sex
+penguins |> 
+  group_by(sex, species) |> 
+  summarize(n = n()) |> 
+  mutate(proportion = n / sum(n))
+```
+
+```{r}
+# Units of observation = penguins
+head(penguins)
+```
+
+```{r}
+penguin_avg <- penguins |> 
+  group_by(species, sex) |> 
+  summarize(avg_body_mass = mean(body_mass_g, na.rm = TRUE)) |> 
+  na.omit()
+```
+
+
+```{r}
+# Units of observation = species/sex combos
+head(penguin_avg)
+```
+
+```{r}
+penguin_avg |> 
+  pivot_wider(names_from = sex, values_from = avg_body_mass)
+
+#it places body mass under the sex type, rather than having sex types all in one column columns. adding more columns
+```
+
+```{r}
+penguin_avg |> 
+  pivot_wider(names_from = sex, values_from = avg_body_mass) |> 
+  mutate(diff = male - female)
+```
+
+```{r}
+penguin_avg_wide <- penguin_avg |> 
+  pivot_wider(names_from = sex, values_from = avg_body_mass)
+
+penguin_avg_wide
+```
+
+
+```{r}
+# We can either communicate which variables we WANT to collect into a single column (female, male)
+penguin_avg_wide |> 
+  pivot_longer(cols = c(female, male), names_to = "sex", values_to = "avg_body_mass")
+```
+```{r}
+# Or which variable(s) we do NOT want to collect into a single column (sex)
+penguin_avg_wide |> 
+  pivot_longer(cols = -species, names_to = "sex", values_to = "avg_body_mass")
+```
+
+```{r}
+food <- data.frame(
+  customer = rep(c("A", "B"), each = 3),
+  restaurant = rep(c("Shish", "FrenchMeadow", "DunnBros"), 2),
+  order = c("falafel", "salad", "coffee", "baklava", "pastry", "tea")
+)
+food
+```
+
+```{r}
+more_food <- data.frame(
+  customer = c("C", "D"),
+  Shish = c("coffee", "maza"),
+  FrenchMeadow = c("soup", "sandwich"),
+  DunnBros = c("cookie", "coffee")
+)
+more_food
+```
+
+```{r}
+sleep_wide <- read.csv("https://mac-stat.github.io/data/sleep_wide.csv")
+
+head(sleep_wide)
+
+#subject numbers are people, the rest of columns seem to be each of their reaction times by day
+```
+
+```{r}
+# For cols, try 2 appproaches: using - and starts_with
+sleep_wide |>
+  pivot_longer(cols = -Subject, names_to = "day", values_to = "reaction_time")
+```
+
+```{r}
+sleep_wide |>
+  pivot_longer(cols = starts_with("day"), names_to = "day", values_to = "reaction_time")
+```
+
+```{r}
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject,
+               names_to = "day",
+               names_prefix = "day_",
+               values_to = "reaction_time") 
+```
+
+```{r}
+ggplot(sleep_long, aes(y = reaction_time, x = day, color = Subject)) + 
+  geom_line()
+```
+
+```{r}
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject,
+               names_to = "day",
+               names_prefix = "day_",
+               values_to = "reaction_time") |> 
+  mutate(Subject = as.factor(Subject), day = as.numeric(day))
+```
+
+```{r}
+# Make a line plot of reaction time by day for each subject
+# Put these all on the same frame
+ggplot(sleep_long, aes(y = reaction_time, x = day, color = Subject)) + 
+  geom_line()
+```
+
+```{r}
+# Make a line plot of reaction time by day for each subject
+# Put these all on separate frames (one per subject)
+ggplot(sleep_long, aes(y = reaction_time, x = day, color = Subject)) + 
+  geom_line() + 
+  facet_wrap(~ Subject)
+
+#Overall each subject seems to increase in reaction time as time increases. Which I would say am not surprised by kowing how slow the mind can get with lack of sleep. 
+```
+
+```{r}
+sleep_long |>
+  pivot_wider(names_from = day, values_from = reaction_time) |>
+  head()
+```
+
+```{r}
+sleep_long |>
+  pivot_wider(names_from = day, values_from = reaction_time, names_prefix = "day_") |>
+  head()
+```
+

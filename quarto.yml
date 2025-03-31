@@ -30,6 +30,7 @@ book:
       - bw/bw-tri.qmd
       - bw/bw-quad.qmd
       - bw/bw-spatial.qmd
+      - bw/Sum.sheet.qmd
 
     - part: "In-class Activities"
       chapters: 
@@ -41,8 +42,8 @@ book:
       - ica/ica-dates.qmd
       - ica/ica-resh.qmd
       - ica/ica-Factors.qmd
-      - ica/Sum.sheet.qmd
-      
+      - ica/ica-join.qmd
+      - ica/ica-impata.qmd
 
 format:
   html:

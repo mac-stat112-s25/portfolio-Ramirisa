@@ -1,0 +1,110 @@
+---
+title: "ica-impdat"
+editor: visual
+---
+```{r}
+library(readr)
+imdb_5000_messy <- read_csv("data/imdb_5000_messy.csv")
+View(imdb_5000_messy)
+
+# This should be the folder where you stored this qmd!
+getwd()
+
+#I've got the basic jist of it, the rest is just wrangling and cleaning, Figured out how to import data mostly
+```
+```{r}
+library(readr)
+stats <- read_csv("data/stats.csv")
+View(stats)
+```
+
+```{r}
+library(tidyverse)
+ imdb_messy <- read_csv("C:/Users/ramir/OneDrive/Documents/GitHub/portfolio-Ramirisa/data/imdb_5000_messy.csv")
+```
+
+
+```{r}
+library(tidyverse)
+imdb_temp <- read_csv("data/imdb_5000_messy.csv")
+```
+```{r}
+view(imdb_5000_messy)
+
+getwd()
+```
+```{r}
+library(readr)
+imdb_temp <- read_csv("Home/../data/imdb_5000_messy.csv")
+```
+
+```{r}
+View(imdb_5000_messy)
+```
+
+
+
+```{r}
+imdb_messy |>
+  mutate(across(where(is.character), as.factor)) |> 
+  summary()
+```
+
+```{r}
+imdb_messy |> 
+  count(color)
+```
+```{r}
+imdb_temp <- imdb_messy |> 
+  mutate(color = fct_recode(color,
+                            "Color" = "COLOR",
+                            "Color" = "color",
+                            "Black_White" = "B&W",
+                            "Black_White" = "Black and White"))
+
+imdb_temp |> 
+  count(color)
+```
+
+```{r}
+imdb_temp <- imdb_messy |> 
+  mutate(color = str_replace(color, "COLOR", "Color"),
+         color = str_replace(color, "color", "Color"),
+         color = str_replace(color, "B&W", "Black_White"),
+         color = str_replace(color, "Black and White", "Black_White"))
+
+imdb_temp |> 
+  count(color)
+```
+
+```{r}
+
+nrow(imdb_messy)
+```
+```{r}
+
+colSums(is.na(imdb_messy))
+```
+```{r}
+imdb_messy |> 
+  filter(is.na(actor_1_facebook_likes))
+```
+
+```{r}
+imdb_messy |> 
+  summarize(mean(duration, na.rm = TRUE))
+```
+
+```{r}
+imdb_temp <- drop_na(imdb_messy)
+nrow(imdb_temp)
+```
+
+```{r}
+colSums(is.na(imdb_temp))
+```
+```{r}
+ggplot(imdb_messy, aes(x = duration, fill = color)) +
+  geom_density()
+```
+
