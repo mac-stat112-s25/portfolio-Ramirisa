@@ -5,6 +5,73 @@ title: "Spatial Viz"
 Use this file to generate a professional looking **spatial** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
 
 ```{r}
+library(tibble)
+
+
+# Isaiah's favorite places in Texas
+favorite_Places <- tribble(
+  ~place, ~long, ~lat, ~favorite,
+  "home", -95.51390460140479 ,29.831800568188505, "yes", 
+  "Sping Woods batting cages", -95.53209768244504, 29.80834390845172, "yes",
+  "Garner State park", -99.74389070902677,29.599552733199022, "yes",
+  "springspirit", -95.50372740252585, 29.832142909669244,"no",
+  "Gym",  -95.50195869124816, 29.81584925293071, "no",
+  "Grandma's", -95.54705812353582, 29.799837797973787, "no",
+  "church", -95.45996377446176, 29.78260617451058, "no",
+  "D'bats", -95.56941872353474, 29.833160713154612,  "no",
+  "HEB", -95.53268245374554, 29.788162184326975, "no",
+  "Lupe Tortilla", -95.6371158550073, 29.7935055368061, "no"
+  )
+```
+
+
+```{r}
+# Load required libraries
+library(tidyverse)
+library(openintro)
+```
+
+
+```{r}
+# Import starbucks location data
+starbucks <- read.csv("https://mac-stat.github.io/data/starbucks.csv")
+```
+
+
+```{r}
+starbucks_us_by_state <- starbucks |>
+  filter(Country == "US") |>
+  count(State.Province) |>
+  mutate(state_name = str_to_lower(abbr2state(State.Province)))
+```
+
+
+```{r}
+census_pop_est_2018 <- read_csv("https://mac-stat.github.io/data/us_census_2018_state_pop_est.csv") |>
+  separate(state, into = c("dot", "state"), extra = "merge") |>
+  select(-dot) |>
+  mutate(state = str_to_lower(state))
+
+starbucks_with_2018_pop_est <-
+  starbucks_us_by_state |>
+  left_join(census_pop_est_2018,
+    by = c("state_name" = "state")
+  ) |>
+  mutate(starbucks_per_10000 = (n / est_pop_2018) * 10000)
+```
+```{r}
+# Get the latitude and longitude coordinates of state boundaries
+states_map <- map_data("state")
+
+# Check it out
+head(states_map)
+
+head(states_map)
+
+```
+
+
+```{r}
 starbucks_us <- starbucks |> 
   filter(Country == "US")
 

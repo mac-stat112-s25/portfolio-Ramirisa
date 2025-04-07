@@ -22,10 +22,7 @@ ggplot(elections, aes(x = dem_support_20)) +
   geom_bar()
 ```
 
-```{r}
-elections |> 
-  count(dem_support_20)
-```
+
 
 ```{r}
 str(elections)
@@ -44,10 +41,7 @@ str(elections)
 ggplot(elections, aes(x = dem_support_20)) +
   geom_bar()
 ```
-```{r}
-elections |> 
-  count(dem_support_20)
-```
+
 
 ```{r}
 # We can redefine any number of the category labels.

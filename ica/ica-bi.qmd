@@ -43,6 +43,7 @@ head(elections)
 ```
 
 ```{r}
+library(ggplot2)
 # Add a layer of points for each county
 # Take note of the geom: geom_point
 ggplot(elections, aes(y = total_votes_16, x = total_votes_12)) +
@@ -268,6 +269,9 @@ ggplot(elections, aes(x = repub_pct_20, y = state_abbr)) +
 
 
 ```{r}
+library(ggplot2)
+library(ggridges)
+library(forcats)
 # YOUR TURN: color/fill the ridges according to a state's historical voting patterns 
 # and add meaningful axis labels
 ggplot(elections, aes(x = repub_pct_20, y = fct_reorder(state_abbr, repub_pct_20), fill = historical)) + 

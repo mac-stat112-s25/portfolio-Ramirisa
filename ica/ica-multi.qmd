@@ -76,6 +76,34 @@ ggplot(education, aes(x = sat, fill = fracCat)) +
   geom_density(alpha = 0.5)
 ```
 ```{r}
+ggplot(education, aes(y = sat, x = expend, color = fracCat)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+```{r}
+# Remove the "State" column and use it to label the rows
+# Then scale the variables
+plot_data <- education |> 
+  column_to_rownames("State") |> 
+  data.matrix() |> 
+  scale()
+
+# Load the gplots package needed for heatmaps
+library(gplots)
+
+
+```
+
+
+
+
+
+```{r}
+plot_data <- matrix(runif(50), nrow = 10, ncol = 5)
+colnames(plot_data) <- c("Var1", "Var2", "Var3", "Var4", "Var5")
+rownames(plot_data) <- paste("Row", 1:10)
+
 stars(plot_data,
   flip.labels = FALSE,
   key.loc = c(10, 1.5),

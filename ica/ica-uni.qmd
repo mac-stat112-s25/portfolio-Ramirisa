@@ -76,11 +76,7 @@ ggplot(hikes, aes(x = elevation))
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram()
 ```
-```{r}
-ggplot(penguins, aes(y = bill_depth_mm, fill = sex, x = flipper_length_mm)) + 
-   geom_point() + 
-   facet_wrap(~ species)
-```
+
 ```{r}
 # Use the ggplot function
 ggplot(hikes, aes(x = rating))
@@ -136,6 +132,8 @@ fave_places <- read.csv("https://hash-mac.github.io/stat112site-s25/data/our_fav
 head(fave_places)
 ```
 ```{r}
+library(leaflet)
+
 # Since we named them "longitude" and "latitude", the function
 # automatically recognizes these variables. No need to write them!
 leaflet(data = fave_places) |> 
