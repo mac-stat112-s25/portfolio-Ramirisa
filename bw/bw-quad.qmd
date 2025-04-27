@@ -4,28 +4,11 @@ title: "Quadvariate Viz"
 
 Use this file to generate a professional looking **quadvariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
 
-```{r}
-library(tibble)
 
 
-# Isaiah's favorite places in Texas
-favorite_Places <- tribble(
-  ~place, ~long, ~lat, ~favorite,
-  "home", -95.51390460140479 ,29.831800568188505, "yes", 
-  "Sping Woods batting cages", -95.53209768244504, 29.80834390845172, "yes",
-  "Garner State park", -99.74389070902677,29.599552733199022, "yes",
-  "springspirit", -95.50372740252585, 29.832142909669244,"no",
-  "Gym",  -95.50195869124816, 29.81584925293071, "no",
-  "Grandma's", -95.54705812353582, 29.799837797973787, "no",
-  "church", -95.45996377446176, 29.78260617451058, "no",
-  "D'bats", -95.56941872353474, 29.833160713154612,  "no",
-  "HEB", -95.53268245374554, 29.788162184326975, "no",
-  "Lupe Tortilla", -95.6371158550073, 29.7935055368061, "no"
-  )
-```
-
-```{r}
-# Load packages
+```{r, echo=FALSE,message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(ggplot2)
 library(sf)
 library(maps)
 
@@ -39,30 +22,11 @@ midwest_boundaries <- st_as_sf(
 head(midwest_boundaries)
 ```
 
-
-```{r}
-library(leaflet)
-
-leaflet() %>%
-  addTiles() %>%  
-  addCircleMarkers(
-    data = favorite_Places,
-    lng = ~long, lat = ~lat,
-    color = ~ifelse(favorite == "yes", "red", "darkblue"),
-    radius = ~ifelse(favorite == "yes", 6, 4), 
-    label = ~place,  # Adds hover labels
-    labelOptions = labelOptions(noHide = FALSE, direction = "auto")
-  ) %>%
-  setView(lng = mean(favorite_Places$long), lat = mean(favorite_Places$lat), zoom = 6)
-  
-
-
-```
-
-```{r}
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
 # Option 1: tidytuesdayR package 
 ## install.packages("tidytuesdayR")
-
+library(tidyverse)
+library(ggplot2)
 tuesdata <- tidytuesdayR::tt_load('2023-12-12')
 ## OR
 tuesdata <- tidytuesdayR::tt_load(2023, week = 50)
@@ -77,13 +41,21 @@ holiday_movie_genres <- readr::read_csv('https://raw.githubusercontent.com/rford
 ```
 
 
-```{r}
+
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(ggplot2)
 library(ggplot2)
 
 ggplot(holiday_movies, aes(y = average_rating, x = year, color = title_type, shape = christmas )) +
   geom_point()+
-  labs(title = "Movie success based on categories",
-       caption = "Created by Isaiah")
+  labs(title = "Holiday Movie success based on categories and movie type(title_type)",
+       caption = "Created by Isaiah, 4/25/2025, source: tidytuesday 2023-12-12",
+        x = "Year",
+       y="Average rating")+
+  theme(legend.title = element_blank())
+ 
        
 ```
 
