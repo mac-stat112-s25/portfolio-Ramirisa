@@ -4,7 +4,7 @@ project:
 
 book:
   title: "COMP/STAT112 Notebook"
-  author: "Your Name Here"
+  author: "Isaiah Ramirez"
   date: today
   reader-mode: true
   page-navigation: true
@@ -13,7 +13,7 @@ book:
   
   
   sidebar:
-    title: "Your Name Here"
+    title: "Isaiah Ramirez"
     collapse-level: 2
     style: "docked"
     pinned: true
@@ -30,7 +30,12 @@ book:
       - bw/bw-tri.qmd
       - bw/bw-quad.qmd
       - bw/bw-spatial.qmd
+      - bw/bw-Sum.sheet.qmd
       - bw/Exam1.qmd
+      
+      
+      
+    
 
     - part: "In-class Activities"
       chapters: 
@@ -38,12 +43,12 @@ book:
       - ica/ica-bi.qmd
       - ica/ica-multi.qmd
       - ica/ica-spatial.qmd
-      - ica/ica-wrang.qmd
       - ica/ica-dates.qmd
+      - ica/ica-wrang.qmd
       - ica/ica-resh.qmd
       - ica/ica-Factors.qmd
-      - ica/Sum.sheet.qmd
-      
+      - ica/ica-join.qmd
+      - ica/ica-impata.qmd
 
 format:
   html:
