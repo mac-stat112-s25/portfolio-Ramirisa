@@ -3,7 +3,9 @@ title: "Trivariate Viz"
 ---
 
 Use this file to generate a professional looking **trivariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
-```{r}
+```{r, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
 # Option 1: tidytuesdayR package 
 ## install.packages("tidytuesdayR")
 
@@ -21,7 +23,7 @@ holiday_movie_genres <- readr::read_csv('https://raw.githubusercontent.com/rford
 ```
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 library(ggplot2)
 library(viridis)
@@ -31,24 +33,28 @@ ggplot(holiday_movies, aes(x = average_rating, fill = title_type)) +
   geom_bar()+
    labs(
     title = "Title type's and their"~italic("Ratings"),
-    caption = "Created by Isaiah",
+    caption = "Created by Isaiah, 4/26/2025, source: tidytuesday 2023-12-12 ",
     x = "rating",
     y = "Title type totals")+
-  scale_fill_viridis_d()    
+  scale_fill_viridis_d()+
+  theme(legend.title = element_blank())
    
   
   
 ```
-```{r}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
 ggplot(holiday_movies, aes(y = average_rating, x = runtime_minutes, color = title_type)) +  
 geom_point() +
 geom_smooth(se = FALSE,method = "lm")+
   labs(
-    title = "Length of movies compared to"~italic("Rating"),
-    caption = "Created by Isaiah",
+    title = "Length of type of movie compared to"~italic("Rating"),
+    caption = "Created by Isaiah, 4/26, 2025, source: tidytuesday 2023-12-12",
     x = "Movie length",
-    y = "rating")+
-  scale_fill_viridis_d()
+    y = "Rating")+
+  scale_fill_viridis_d()+
+  theme(legend.title = element_blank())
  
 
 ```

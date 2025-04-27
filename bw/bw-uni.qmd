@@ -4,7 +4,10 @@ title: "Univariate Viz"
 
 Use this file to generate a professional looking **univariate** visualization. The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(ggplot2)
 # Option 1: tidytuesdayR package 
 ## install.packages("tidytuesdayR")
 
@@ -18,14 +21,17 @@ cheeses <- tuesdata$cheeses
 
 cheeses <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2024/2024-06-04/cheeses.csv')
 ```
-```{r}
+
+
+```{r, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
 ggplot(cheeses, aes(x = vegetarian))+
 geom_bar(color = "darkblue", fill = "lightblue")  +
   labs(x = "Cheese is vegetarian",
        title = "Vegan vs. Non Vegan cheese",
-       caption = "Created by Isaiah")
+       caption = "Created by Isaiah, 4/26/2025, source: tidytuesday 2024-06-04")
 ```
+
 
 

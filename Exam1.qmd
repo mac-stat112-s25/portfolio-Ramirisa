@@ -1,0 +1,101 @@
+---
+title: "Exam 1"
+editor: visual
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Get the Data
+
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
+
+# Or read in with tidytuesdayR package (https://github.com/dslc-io/tidytuesdayR)
+# PLEASE NOTE TO USE 2020 DATA YOU NEED TO USE tidytuesdayR version ? from GitHub
+
+# Either ISO-8601 date or year/week works!
+
+# Install via pak::pak("dslc-io/tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2020-02-18')
+tuesdata <- tidytuesdayR::tt_load(2020, week = 8)
+
+
+food_consumption <- tuesdata$food_consumption
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# Load the data
+food_consumption <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
+
+```
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Summarize the data
+consumption_summary <- food_consumption %>%
+  group_by(country, food_category) %>%
+  summarise(total_consumption = sum(consumption, na.rm = TRUE)) %>%
+  ungroup()
+
+
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+top_countries <- consumption_summary %>%
+  group_by(country) %>%
+  summarise(total = sum(total_consumption)) %>%
+  arrange(desc(total)) %>%
+  slice_head(n = 20) %>%
+  pull(country)
+
+
+top_consumption <- consumption_summary %>%
+  filter(country %in% top_countries)
+
+
+ggplot(top_consumption, aes(x = food_category, y = fct_reorder(country, total_consumption), fill = total_consumption)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Consumption of Food Categories (Top 20 Countries)",
+    caption = "by Isaiah Ramirez, 4/27/2025, source:tidytuesday 2020-02-18",
+    x = "Food Category",
+    y = "Country",
+    fill = "(kg/person/year)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+
+top_countries <- consumption_summary %>%
+  group_by(country) %>%
+  summarise(total = sum(total_consumption)) %>%
+  arrange(desc(total)) %>%
+  slice_head(n = 10) %>%
+  pull(country)
+
+
+top_consumption <- consumption_summary %>%
+  filter(country %in% top_countries)
+
+ggplot(top_consumption, aes(x = food_category, y = country, fill = total_consumption)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Consumption of Food Categories (Top 10 Countries)",
+    x = "Food Category",
+    y = "Country",
+    fill = "(kg/person/year)",
+    caption = "by Isaiah Ramirez, 4/27/2025, source:tidytuesday 2020-02-18"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
