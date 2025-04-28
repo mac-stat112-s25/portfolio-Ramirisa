@@ -1,0 +1,137 @@
+---
+title: "Exam1-viz"
+editor: visual
+---
+
+# Food Consumption and CO2 Emissions
+
+The data this week comes from [nu3](https://www.nu3.de/blogs/nutrition/food-carbon-footprint-index-2018) and was contributed by [Kasia Kulma](https://r-tastic.co.uk/post/from-messy-to-tidy/).
+
+Kasia has put together a great guide on webscraping along with data cleaning and organization! Make sure to check out her [blog post](https://r-tastic.co.uk/post/from-messy-to-tidy/), and the raw code is duplicated as part of the cleaning script.
+
+### Get the data here
+
+```{r}
+# Get the Data
+
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
+
+# Or read in with tidytuesdayR package (https://github.com/dslc-io/tidytuesdayR)
+# PLEASE NOTE TO USE 2020 DATA YOU NEED TO USE tidytuesdayR version ? from GitHub
+
+# Either ISO-8601 date or year/week works!
+
+# Install via pak::pak("dslc-io/tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2020-02-18')
+tuesdata <- tidytuesdayR::tt_load(2020, week = 8)
+
+
+food_consumption <- tuesdata$food_consumption
+```
+### Data Dictionary
+
+# `food_consumption.csv`
+
+|variable      |class     |description |
+|:-------------|:---------|:-----------|
+|country       |character | Country Name |
+|food_category |character | Food Category |
+|consumption   |double    | Consumption (kg/person/year) |
+|co2_emmission |double    | Co2 Emission (Kg CO2/person/year) |
+
+### Cleaning Script
+
+
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+
+# Load the dataset
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
+
+# View the first few rows to get an understanding of what I am looking at data wise
+head(food_consumption)
+
+
+glimpse(food_consumption)
+
+```
+```{r}
+food_summary <- food_consumption %>%
+  group_by(food_category) %>%
+  summarise(
+    avg_consumption = mean(consumption, na.rm = TRUE),
+    total_consumption = sum(consumption, na.rm = TRUE)
+  ) %>%
+  arrange(desc(total_consumption))  # Sort from highest to lowest consumption
+
+# This could help us get an understanding if other country consumption is below or above average
+print(food_summary)
+```
+
+```{r}
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
+
+# Get unique countries
+unique_countries <- food_consumption %>%
+  distinct(country) %>%
+  arrange(country)
+
+# Get unique food categories
+unique_food_categories <- food_consumption %>%
+  distinct(food_category) %>%
+  arrange(food_category)
+
+# This will show me the different categories withing the chosen character columns.From food categories, to the countries we have.
+```
+
+```{r}
+country_consumption <- food_consumption %>%
+  group_by(country) %>%
+  summarize(total_consumption = sum(consumption, na.rm = TRUE)) %>%
+  arrange(desc(total_consumption))  # Sort for better visualization
+
+# Bar plot of food consumption per country
+ggplot(country_consumption, aes(x = reorder(country, total_consumption), y = total_consumption)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +  # Flip for readability
+  labs(title = "Total Food Consumption Per Country",
+       x = "Country",
+       y = "Total Food Consumption (kg/person/year)") +
+  theme_minimal()
+
+```
+```{r}
+# Load necessary libraries
+library(tidytuesdayR)
+library(dplyr)
+library(ggplot2)
+
+# Load the dataset from TidyTuesday
+tuesdata <- tidytuesdayR::tt_load('2020-02-18')
+food_consumption <- tuesdata$food_consumption
+
+# Summarize total consumption by food category
+food_summary <- food_consumption %>%
+  group_by(food_category) %>%
+  summarise(total_consumption = sum(consumption, na.rm = TRUE)) %>%
+  arrange(desc(total_consumption))
+
+# Display the summarized data
+print(food_summary)
+
+# Optionally, visualize the data
+ggplot(food_consumption, aes(x = reorder(food_category)+
+  geom_bar() +
+  coord_flip() +
+  labs(title = "Total Food Consumption by Category",
+       x = "Food Category",
+       y = "Total Consumption") +
+  theme_minimal()
+
+```
+
+
+
