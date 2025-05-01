@@ -32,14 +32,14 @@ book:
       - bw/bw-spatial.qmd
       - bw/bw-Sum.sheet.qmd
       - bw/Exam1.qmd
-      -bw/Exam2.qmd
-      
+      - bw/Exam2.qmd
+      - bw/Solo-Proj.qmd
       
       
       
     
 
-    - part: "In-class Activities"
+    - part: "In-class Activities/Summary sheets"
       chapters: 
       - ica/ica-uni.qmd
       - ica/ica-bi.qmd
@@ -51,6 +51,13 @@ book:
       - ica/ica-Factors.qmd
       - ica/ica-join.qmd
       - ica/ica-impata.qmd
+      - ica/Visualization.qmd
+      - ica/Wrangling.qmd
+      
+      
+      
+
+      
 
 format:
   html:

@@ -1,6 +1,15 @@
 ---
-title: "Sum.sheet"
+title: "Summ.sheet"
 editor: visual
 ---
 
 ![Summary sheet](C:/Users/ramir/Downloads/IMG_8169.jpg)
+
+```{r}
+
+knitr::include_graphics("C:/Users/ramir/Downloads/IMG_8646.jpg")
+```
+
+```
+
+C:/Users/ramir/Downloads/IMG_8646.jpg

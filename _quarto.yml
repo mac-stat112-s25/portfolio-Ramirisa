@@ -31,6 +31,7 @@ book:
       - bw/bw-quad.qmd
       - bw/bw-spatial.qmd
       - bw/Exam1.qmd
+      - bw/Exam2.qmd
 
     - part: "In-class Activities"
       chapters: 

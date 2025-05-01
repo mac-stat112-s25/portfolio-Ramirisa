@@ -21,7 +21,6 @@ tuesdata <- tidytuesdayR::tt_load(2020, week = 8)
 
 food_consumption <- tuesdata$food_consumption
 ```
-
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 
@@ -29,6 +28,8 @@ library(tidyverse)
 food_consumption <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
 
 ```
+
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Summarize the data
@@ -97,3 +98,4 @@ ggplot(top_consumption, aes(x = food_category, y = country, fill = total_consump
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+
