@@ -8,12 +8,12 @@ editor: visual
 ```{r,echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 library(readxl)
 
-# Full path to your file (downloaded from this session)
+
 covid_data <- read_excel("C:/Users/ramir/Downloads/CaseCountData (2).xlsx", 
                          sheet = "Case and Fatalities_2023", 
                          skip = 1)
 
-# View the first few rows
+
 head(covid_data)
 
 
@@ -23,7 +23,7 @@ head(covid_data)
 library(tigris)
 library(sf)
 
-# Download Texas county shapefile
+
 counties_sf <- counties(state = "TX", cb = TRUE, class = "sf")
 
 ```
@@ -33,8 +33,7 @@ counties_sf <- counties(state = "TX", cb = TRUE, class = "sf")
 
 library(dplyr)
 
-# Make sure county names match (sometimes they're titled differently)
-# Left join your COVID data to the counties map
+
 map_data <- counties_sf  %>%
   left_join(covid_data, by = c("NAME" = "County"))
 
@@ -42,16 +41,14 @@ map_data <- counties_sf  %>%
 
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-# First clean the names in your covid_data
+
 covid_data <- covid_data %>%
-  mutate(County = gsub(" County", "", County),    # Remove "County" if present
-         County = trimws(County),                 # Remove extra spaces
-         County = tolower(County))                # Make lowercase
+  mutate(County = gsub(" County", "", County),    
+         County = trimws(County),                 
+         County = tolower(County))               
 
-# Clean the names in counties_sf
 counties_sf <- counties_sf %>%
-  mutate(NAME = tolower(NAME))                    # Make lowercase
-
+  mutate(NAME = tolower(NAME))                    
 ```
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
@@ -61,7 +58,7 @@ map_data <- counties_sf %>%
 ```
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-# Fix the column names
+
 colnames(covid_data) <- c("County", "Confirmed_Cases", "Probable_Cases", "Fatalities")
 
 ```
@@ -88,9 +85,9 @@ ggplot(map_data) +
   ) +
   theme_minimal()+
   theme(
-    axis.text = element_blank(),    # Remove numbers on x and y axes
-    axis.ticks = element_blank(),   # Remove the little tick marks
-    panel.grid = element_blank()    # Remove background grid
+    axis.text = element_blank(),    
+    axis.ticks = element_blank(),   
+    panel.grid = element_blank()   
   )
 
 ```

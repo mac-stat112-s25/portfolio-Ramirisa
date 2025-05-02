@@ -4,16 +4,9 @@ editor: visual
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Get the Data
+
 
 food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
-
-# Or read in with tidytuesdayR package (https://github.com/dslc-io/tidytuesdayR)
-# PLEASE NOTE TO USE 2020 DATA YOU NEED TO USE tidytuesdayR version ? from GitHub
-
-# Either ISO-8601 date or year/week works!
-
-# Install via pak::pak("dslc-io/tidytuesdayR")
 
 tuesdata <- tidytuesdayR::tt_load('2020-02-18')
 tuesdata <- tidytuesdayR::tt_load(2020, week = 8)
@@ -25,7 +18,7 @@ food_consumption <- tuesdata$food_consumption
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 
-# Load the data
+
 food_consumption <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
 
 ```

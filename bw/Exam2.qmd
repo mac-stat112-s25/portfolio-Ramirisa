@@ -4,16 +4,9 @@ editor: visual
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Get the Data
+
 
 food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-02-18/food_consumption.csv')
-
-# Or read in with tidytuesdayR package (https://github.com/dslc-io/tidytuesdayR)
-# PLEASE NOTE TO USE 2020 DATA YOU NEED TO USE tidytuesdayR version ? from GitHub
-
-# Either ISO-8601 date or year/week works!
-
-# Install via pak::pak("dslc-io/tidytuesdayR")
 
 tuesdata <- tidytuesdayR::tt_load('2020-02-18')
 tuesdata <- tidytuesdayR::tt_load(2020, week = 8)
@@ -77,7 +70,6 @@ ggplot(top5_countries, aes(x = reorder(country, total_consumption), y = total_co
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Step 1: Create consumption_summary
 consumption_summary <- fcc %>%
   group_by(country, food_category) %>%
   summarise(total_consumption = sum(consumption, na.rm = TRUE)) %>%
@@ -151,14 +143,14 @@ consumption_summary <- consumption_summary %>%
 
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 #| fig-height: 15
 #| fig-width: 15
 library(tidyverse)
 library(sf)
 library(rnaturalearth)
 
-# Load world map
+
 world <- ne_countries(returnclass = "sf") %>%
   select(name, geometry) %>%
   mutate(name = case_when(
@@ -184,13 +176,14 @@ world_food <- world %>%
                names_to = "food_category",
                values_to = "consumption")
 
-# Plot
+
 ggplot(world_food) +
   geom_sf(aes(fill = consumption)) +
-  scale_fill_viridis_c(option = "plasma", na.value = "grey90") +  # optional: better colors
+  scale_fill_viridis_c(option = "plasma", na.value = "grey90") +   
   facet_wrap(~ food_category) +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") 
+ 
 
 
 
