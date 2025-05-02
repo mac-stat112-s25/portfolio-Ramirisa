@@ -36,10 +36,7 @@ book:
       - bw/Solo-Proj.qmd
       
       
-      
-    
-
-    - part: "In-class Activities/Summary sheets"
+    - part: "In-class Activities"
       chapters: 
       - ica/ica-uni.qmd
       - ica/ica-bi.qmd
@@ -53,6 +50,8 @@ book:
       - ica/ica-impata.qmd
       - ica/Visualization.qmd
       - ica/Wrangling.qmd
+      
+      
       
       
       
