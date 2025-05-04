@@ -32,7 +32,7 @@ book:
       - bw/bw-spatial.qmd
       - bw/Exam1.qmd
       - bw/Exam2.qmd
-      - bw/Solo-Proj.qmd
+      - bw/Solo-Proj.qmd  
 
     - part: "In-class Activities"
       chapters: 
