@@ -92,4 +92,7 @@ ggplot(map_data) +
 
 ```
 
+```{r}
+#STORY
+#There really wasn't any real reason why I chose this specific data set other than because it deals with Texas. This map compared to some other maps I have seen in Texas from years before this like 2020 and before 2023. There has definitely been some improvement. Generally just looking at the map as well we can definitely say a lot of the areas in Texas are very much relatively calm. Especially since covid started to reall spread around 2019-2020.
 
